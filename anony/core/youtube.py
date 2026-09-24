@@ -1,5 +1,3 @@
-#
-
 import asyncio
 import os
 import re
@@ -118,6 +116,27 @@ class YouTubeAPI:
                     if entity.type == MessageEntityType.TEXT_LINK:
                         return entity.url
         return None
+
+    async def search(self, query: str, max_results: int = 1, video: bool = False):
+        try:
+            results = VideosSearch(query, limit=max_results)
+            result_list = (await results.next()).get("result", [])
+            if not result_list:
+                return [] if max_results > 1 else None
+            
+            if max_results == 1:
+                result = result_list[0]
+                title = result["title"]
+                duration_min = result["duration"]
+                vidid = result["id"]
+                yturl = result["link"]
+                thumbnail = result["thumbnails"][0]["url"].split("?")[0]
+                return title, yturl, duration_min, thumbnail, vidid
+            
+            return result_list
+        except Exception as e:
+            logger.error(f"Search Error: {e}")
+            return [] if max_results > 1 else None
 
     async def details(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
