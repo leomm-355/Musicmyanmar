@@ -42,7 +42,7 @@ class Inline:
             )
             
             keyboard.append(
-                [self.ikb(text=f"{_lang['close']}", callback_data="help close",  icon_custom_emoji_id="6095794508518137100")]
+                [self.ikb(text=f"{_lang['close']}", callback_data="help close")]
             )
         return self.ikm(keyboard)
 
@@ -109,13 +109,13 @@ class Inline:
             ]
         else:
             rows = [
-                [self.ikb(text=f"{lang['add_me']}", url=f"https://t.me/{app.username}?startgroup=true", icon_custom_emoji_id="5451827186833051828")],
-                [self.ikb(text=f"{lang['help']}", callback_data="help", icon_custom_emoji_id="5197371802136892976")],
+                [self.ikb(text=f"{lang['add_me']}", url=f"https://t.me/{app.username}?startgroup=true")],
+                [self.ikb(text=f"{lang['help']}", callback_data="help")],
                 [
-                    self.ikb(text=f"{lang['support']}", url=config.SUPPORT_CHAT, icon_custom_emoji_id="5278457271402120277"),
-                    self.ikb(text=f"{lang['channel']}", url=config.SUPPORT_CHANNEL,icon_custom_emoji_id="6066703681410048207"),
+                    self.ikb(text=f"{lang['support']}", url=config.SUPPORT_CHAT),
+                    self.ikb(text=f"{lang['channel']}", url=config.SUPPORT_CHANNEL),
                 ],
-                [self.ikb(text=f"{lang['source']}", user_id=config.OWNER_ID, icon_custom_emoji_id="5422537279400868395")]
+                [self.ikb(text=f"{lang['source']}", user_id=config.OWNER_ID)]
                 
             ]
         return self.ikm(rows)
