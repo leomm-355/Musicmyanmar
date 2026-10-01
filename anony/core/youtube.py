@@ -31,9 +31,10 @@ class YouTube:
 
     def get_cookies(self):
         if not self.checked:
-            for file in os.listdir(self.cookie_dir):
-                if file.endswith(".txt"):
-                    self.cookies.append(f"{self.cookie_dir}/{file}")
+            if os.path.exists(self.cookie_dir):
+                for file in os.listdir(self.cookie_dir):
+                    if file.endswith(".txt"):
+                        self.cookies.append(f"{self.cookie_dir}/{file}")
             self.checked = True
         if not self.cookies:
             if not self.warned:
@@ -44,6 +45,7 @@ class YouTube:
 
     async def save_cookies(self, urls: list[str]) -> None:
         logger.info("Saving cookies from urls...")
+        os.makedirs(self.cookie_dir, exist_ok=True)
         async with aiohttp.ClientSession() as session:
             for url in urls:
                 name = url.split("/")[-1]
@@ -60,7 +62,7 @@ class YouTube:
     def invalid(self, url: str) -> bool:
         return bool(re.match(self.iregex, url))
 
-    async def search(self, query: str, m_id: int, video: bool = False) -> Track | None:
+    async def search(self, query: str, m_id: int = None, video: bool = False) -> Track | None:
         try:
             _search = VideosSearch(query, limit=1, with_live=False)
             results = await _search.next()
@@ -108,7 +110,7 @@ class YouTube:
         ext = "mp4" if video else "webm"
         filename = f"downloads/{video_id}.{ext}"
 
-        if Path(filename).exists():
+        if Path(filename).exists() and Path(filename).stat().st_size > 0:
             return filename
 
         os.makedirs("downloads", exist_ok=True)
@@ -121,7 +123,7 @@ class YouTube:
         params = {
             "url": target_url,
             "type": stream_type,
-            "api_key": getattr(config, "CORE_API_KEY", "")
+            "api_key": getattr(config, "CORE_API_KEY", "sparrowQkRHLixfwxZH9UiabXaF1qYf")
         }
         
         timeout = aiohttp.ClientTimeout(total=600 if video else 300)
