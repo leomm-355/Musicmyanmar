@@ -1,7 +1,4 @@
-# Copyright (c) 2025 AnonymousX1025
-# Licensed under the MIT License.
-# This file is part of AnonXMusic
-
+# 
 
 import os
 import re
@@ -115,7 +112,7 @@ class YouTube:
     def invalid(self, url: str) -> bool:
         return bool(re.match(self.iregex, url))
 
-    async def search(self, query: str, m_id: int, video: bool = False) -> Track | None:
+    async def search(self, query: str, m_id: int = None, video: bool = False) -> Track | None:
         try:
             _search = VideosSearch(query, limit=1, with_live=False)
             results = await _search.next()
