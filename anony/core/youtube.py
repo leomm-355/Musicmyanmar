@@ -115,7 +115,7 @@ class YouTube:
         stream_type = "video" if video else "audio"
         
         # ပေးထားသော API Documentation အတိုင်း သတ်မှတ်ချက်များ ထည့်သွင်းခြင်း
-        api_url = "https://api.shrutibots.site/download"
+        api_url = "https://apisparrow.site/download"
         target_url = f"{self.base}{video_id}"
         
         params = {
