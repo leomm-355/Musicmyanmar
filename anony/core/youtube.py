@@ -17,8 +17,8 @@ from anony import logger
 from anony.helpers import Track, utils
 
 # API Configuration (ပထမ API ပုံစံ)
-API_URL = os.environ.get("API_URL", "")
-API_KEY = os.environ.get("API_KEY", "")
+API_URL = os.environ.get("API_URL", "http://web.riteshyt.in")
+API_KEY = os.environ.get("API_KEY", "riteshfree4bde1c8776ba01ed301850d9")
 
 DOWNLOAD_DIR = "downloads"
 
